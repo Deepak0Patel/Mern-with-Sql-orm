@@ -6,21 +6,21 @@ const ContactFrom: React.FC<{ contact?: any; onClose: () => void }> = ({
     contact,
     onClose,
 }) => {
-
     const [formState, setFormState] = useState(
         contact || { firstName: "", lastName: "", status: "active" }
     );
 
-    const [isEditing, setIsEditing] = useState<boolean>(!!contact)
+    const [isEditing, setIsEditing] = useState<boolean>(!!contact);
 
     useEffect(() => {
         if (contact) {
-            setFormState(contact)
+            setFormState(contact);
         }
-    }, [contact])
+    }, [contact]);
 
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleInputChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
         const { name, value } = e.target;
         setFormState({ ...formState, [name]: value });
     };
@@ -30,12 +30,12 @@ const ContactFrom: React.FC<{ contact?: any; onClose: () => void }> = ({
 
         try {
             if (isEditing) {
-                await updateContact(formState)
+                await updateContact(formState);
             } else {
-                await addContact(formState)
+                await addContact(formState);
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
 
@@ -64,21 +64,19 @@ const ContactFrom: React.FC<{ contact?: any; onClose: () => void }> = ({
                 </div>
 
                 <div>
-
                     <label> status</label>
 
-                    <select name="status" value={formState.status}
-                        onChange={handleInputChange} >
+                    <select
+                        name="status"
+                        value={formState.status}
+                        onChange={handleInputChange}
+                    >
                         <option value="active">Active</option>
                         <option value="inactive">inactive</option>
-
-
-
                     </select>
-
                 </div>
                 <button type="submit">
-                    {isEditing ? 'Update Contact' : 'Add Contact'}
+                    {isEditing ? "Update Contact" : "Add Contact"}
                 </button>
             </form>
         </>
